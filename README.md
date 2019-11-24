@@ -1,3 +1,4 @@
+# CodeDeploy
 ## Instance startup
 
 ```
@@ -46,4 +47,33 @@ aws deploy create-deployment \
   --deployment-config-name CodeDeployDefault.OneAtATime \
   --deployment-group-name HelloWorld_DepGroup \
   --s3-location bucket=marvr-codedeploydemobucket,bundleType=zip,key=HelloWorldApp.zip
+```
+
+# Lambda
+
+## Create function
+
+```
+aws lambda create-function --function-name my-test-golang-function \
+  --zip-file fileb://lambdahello.zip --handler lambdahello --runtime go1.x \
+  --role arn:aws:iam::037361087574:role/lambda-role
+```
+
+## Delete function
+
+```
+aws lambda delete-function --function-name my-test-golang-function
+```
+
+## Update function
+
+```
+aws lambda update-function-code --function-name my-test-golang-function \
+  --zip-file fileb://lambdahello.zip
+```
+
+## Invoke function
+
+```
+aws lambda invoke --function-name my-test-golang-function /tmp/output.json; cat /tmp/output.json
 ```
