@@ -1,0 +1,24 @@
+
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html/HelloWorld
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 10
+      runas: root
+  AfterInstall:
+    - location: scripts/do_nothing.sh
+      timeout: 10
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 10
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 10
+      runas: root
+
