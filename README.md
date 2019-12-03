@@ -77,3 +77,35 @@ aws lambda update-function-code --function-name my-test-golang-function \
 ```
 aws lambda invoke --function-name my-test-golang-function /tmp/output.json; cat /tmp/output.json
 ```
+
+# Lambda SAM (recommended)
+
+## Build
+
+```
+GOOS=linux GOARCH=amd64 go build -o src/lambdahello/lambdahello ./src/lambdahello
+```
+
+## Test local
+
+```
+sam local start-api
+```
+
+## Package
+
+```
+sam package \
+--template-file template.yaml \
+--output-template-file packaged.yaml \
+--s3-bucket marvr-hello-sam
+```
+
+## Deploy
+
+```
+sam deploy \
+ --template-file packaged.yaml \
+ --stack-name hello-sam \
+ --capabilities CAPABILITY_IAM
+```

@@ -1,16 +1,15 @@
 package main
 
-import "github.com/aws/aws-lambda-go/lambda"
+import (
+  "github.com/aws/aws-lambda-go/events"
+  "github.com/aws/aws-lambda-go/lambda"
+)
 
-type response struct {
-  Message string `json:"message"`
-}
-
-func hello() (*response, error) {
-  rs := &response{
-    Message: "Hello world",
-  }
-	return rs, nil
+func hello() (events.APIGatewayProxyResponse, error) {
+  return events.APIGatewayProxyResponse{
+    Body:       "Hello world",
+    StatusCode: 200,
+  }, nil
 }
 
 func main() {
